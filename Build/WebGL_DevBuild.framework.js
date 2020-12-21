@@ -3607,7 +3607,7 @@ function _JS_WebCamVideo_Start(deviceId) {
  }
     var video = document.createElement("video");
     navigator.getMedia({
-        video: { facingMode: { exact: "environment" } },
+        video: { facingMode: {"environment" } },
         audio: false
     }, (function(stream) {
         video.srcObject = stream;
