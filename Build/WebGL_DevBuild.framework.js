@@ -3605,20 +3605,24 @@ function _JS_WebCamVideo_Start(deviceId) {
   document.body.appendChild(canvas);
   webcam.canvas = canvas;
  }
-    var video = document.createElement("video");
-    navigator.getMedia({
-        video: true,
-        audio: false
-    }, (function(stream) {
-        video.srcObject = stream;
-        webcam.canvas.appendChild(video);
-        video.play();
-        MediaDevices[deviceId].video = video;
-        MediaDevices[deviceId].stream = stream;
-        MediaDevices[deviceId].refCount++;
-    }), (function(err) {
-        console.log("An error occurred! " + err);
-    }));
+ var video = document.createElement("video");
+ navigator.getMedia({
+  video: {
+   facingMode: {
+    exact: "environment"
+   }
+  },
+  audio: false
+ }, (function(stream) {
+  video.srcObject = stream;
+  webcam.canvas.appendChild(video);
+  video.play();
+  MediaDevices[deviceId].video = video;
+  MediaDevices[deviceId].stream = stream;
+  MediaDevices[deviceId].refCount++;
+ }), (function(err) {
+  console.log("An error occurred! " + err);
+ }));
 }
 function _JS_WebCamVideo_Stop(deviceId) {
  if (!MediaDevices[deviceId].video) {
